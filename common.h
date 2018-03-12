@@ -6,13 +6,13 @@
 #include <assert.h>
 #include <pthread.h>
 
-double 
+double
 GetTime()
 {
     struct timeval t;
     int rc = gettimeofday(&t, NULL);
     assert(rc == 0);
-    return (double)t.tv_sec + (double)t.tv_sec/1e6;
+    return (double)t.tv_sec + (double)t.tv_usec/1e6;
 }
 
 void
@@ -24,7 +24,7 @@ Spin(int howlong)
 }
 
 void
-Pthread_create(pthread_t *t, const pthread_attr_t *attr, 
+Pthread_create(pthread_t *t, const pthread_attr_t *attr,
 	       void *(*start_routine)(void *), void *arg) {
     int rc = pthread_create(t, attr, start_routine, arg);
     assert(rc == 0);
