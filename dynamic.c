@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void main() {
+int main() {
   int n, *a;
   scanf("%d", &n); // number of values to read: 3
   a = (int *) malloc(n * sizeof(int));

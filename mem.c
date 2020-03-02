@@ -14,7 +14,7 @@ main(int argc, char *argv[])
     int *p;                   // memory for pointer is on "stack"
     p = malloc(sizeof(int));  // malloc'd memory is on "heap"
     assert(p != NULL);
-    // printf("(pid:%d) addr of main:     %llx\n", (int) getpid(), (unsigned long long) main);
+    printf("(pid:%d) addr of main:     %llx\n", (int) getpid(), (unsigned long long) main);
     printf("(pid:%d) addr of p:        %llx\n", (int) getpid(), (unsigned long long) &p);
     printf("(pid:%d) addr stored in p: %llx\n", (int) getpid(), (unsigned long long) p);
     *p = atoi(argv[1]); // assign value to addr stored in p
