@@ -1,3 +1,3 @@
 # SINF-T
 
-sample programs and code snippets used to ilustrate the concepts introduced in classes 
+sample programs, code snippets and models used to ilustrate the concepts introduced in classes 
