@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-volatile int counter = 0;
+int counter = 0;
 int loops;
 
 void *worker(void *arg) {

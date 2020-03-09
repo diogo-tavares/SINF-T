@@ -3,7 +3,7 @@
 #include <pthread.h>
 
 pthread_mutex_t m;
-volatile int counter = 0;
+int counter = 0;
 int loops, rc;
 
 void *worker(void *arg) {

@@ -11,6 +11,7 @@ int main() {
     if (id > 0) {
       int status;
       printf("Waited for %d \n", wait(&status));
+      printf("child process status %d \n", status);
       printf("Parent process %d \n", id);
     }
     else
