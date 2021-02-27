@@ -1,0 +1,81 @@
+This is part two of the modeling exercise and we will develop the logical database design from the conceptual information model
+(create the relational model from the UML Class diagram)
+
+Following the same incremental approach we will start with the surgeons and hospitals;
+then we will introduce the surgeries followed by the consumables;
+last we will include additional surgeon details.
+
+
+a) surgeons & ..
+
+Step 1 - map classes into relations
+
+Speciality(__cod__, designation, description)
+Hospital(__name__, address, city, phoneNumber [UK])
+Surgeon(__id__, name, birthdaye, address, phoneNumber [UK], email, contractDate)
+
+
+Step 2 - map associtions into foreign keys (many-to-one) or new relations (many-to-many)
+
+Speciality(__cod__, designation, description)
+Hospital(__name__, address, city, phoneNumber [UK])
+Surgeon(__id__, name, birthdaye, address, phoneNumber, email, contractDate, #cod->Speciality[NN], #name->Hospital[NN])
+Service(__#name->Hospital__, __#cod->Speciality__)
+
+
+b) surgeries & ..
+
+Step 1 - map classes into relations
+
+Surgeries(__id__, date, time, duration)
+Procedure(__id__, designation, description, averageDuration)
+
+
+Step 2 - map associtions into foreign keys (many-to-one) or new relations (many-to-many)
+
+Surgeries(__id__, date, time, duration, #id->Surgeon[NN])
+Procedure(__id__, designation, description, averageDuration, #cod_>Speciality[NN])
+Performed(__#id->Procedure__, __#id->Surgeries__, order)
+
+
+c) consumables & ..
+
+Step 1 - map classes into relations
+
+Consumables(_id_, designation, type, description)
+
+
+Step 2 - map associtions into new relations (many-to-many)
+
+Consumables(_id_, designation, type, description)
+Used(__#id->Consumables__, __#id-> Surgeries__, __#id->Procedure__, quantityUsed)
+Estimated(_#id->Procedure__, __#id->Consumables__, expectedQuantity)
+
+
+d) contact & contract
+
+Step 1 - map classes into relations
+
+Contact(__id__, description, phoneNumber[UK])
+Contract(__id__, startDate, endDate)
+
+Step 2 - map associtions into foreign keys (many-to-one) or new relations (many-to-many)
+
+Contact(__id__, description, phoneNumber[UK], #id->Surgeon[NN])
+Contract(__id__, startDate, endDate, #name->Hospital[NN], #id->Surgeon[NN])
+
+
+Complete RM
+
+Speciality(__cod__, designation, description)
+Hospital(__name__, address, city, phoneNumber [UK])
+Surgeon(__id__, name, birthdaye, address, phoneNumber, email, contractDate, #cod->Speciality[NN], #name->Hospital[NN])
+Service(__#name->Hospital__, __#cod->Speciality__)
+Surgeries(__id__, date, time, duration, #id->Surgeon[NN])
+Procedure(__id__, designation, description, averageDuration, #cod_>Speciality[NN])
+Performed(__#id->Procedure__, __#id->Surgeries__, order)
+Consumables(_id_, designation, type, description)
+Used(__#id->Consumables__, __#id-> Surgeries__, __#id->Procedure__, quantityUsed)
+Estimated(_#id->Procedure__, __#id->Consumables__, expectedQuantity)
+Contact(__id__, description, phoneNumber[UK], #id->Surgeon[NN])
+Contract(__id__, startDate, endDate, #name->Hospital[NN], #id->Surgeon[NN])
