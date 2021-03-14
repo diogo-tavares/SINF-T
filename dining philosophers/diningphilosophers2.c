@@ -121,11 +121,18 @@ static void *philosopher(void* phnum){
         think(think_eat_time());    // think for a while
 
         philosophers[(int)phnum].philo_status=HUNGRY;
-       
-        pthread_mutex_lock(&chopstick[LEFT]);    // get left chopstick
-        philosophers[(int)phnum].left_chopstick=HOLD;
-        pthread_mutex_lock(&chopstick[RIGHT]);   // get right chopstick
-        philosophers[(int)phnum].right_chopstick=HOLD;
+
+        if(LEFT > RIGHT){   // picks up the higher number chopstick first
+            pthread_mutex_lock(&chopstick[LEFT]);    // get left chopstick
+            philosophers[(int)phnum].left_chopstick=HOLD;
+            pthread_mutex_lock(&chopstick[RIGHT]);   // get right chopstick
+            philosophers[(int)phnum].right_chopstick=HOLD;
+        } else{
+            pthread_mutex_lock(&chopstick[RIGHT]);   // get right chopstick
+            philosophers[(int)phnum].right_chopstick=HOLD;
+            pthread_mutex_lock(&chopstick[LEFT]);    // get left chopstick
+            philosophers[(int)phnum].left_chopstick=HOLD;
+        }
         
         philosophers[(int)phnum].philo_status=EATING;
         philosophers[(int)phnum].meals_eaten++;
